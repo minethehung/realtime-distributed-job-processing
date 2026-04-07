@@ -1,0 +1,25 @@
+info:
+  name: CreateJob
+  type: http
+  seq: 1
+
+http:
+  method: POST
+  url: http://localhost:8090/api/jobs
+  body:
+    type: json
+    data: |-
+      {
+        "type": "SEND_EMAIL",
+        "payload": {
+          "email": "abc@gmail.com",
+          "subject": "this is a test email"
+        }
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
