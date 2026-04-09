@@ -1,4 +1,4 @@
-package com.minethehung.apiserver.dto
+package com.minethehung.common
 
 import java.util.UUID
 

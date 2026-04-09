@@ -1,6 +1,6 @@
 package com.minethehung.apiserver.kafka
 
-import com.minethehung.apiserver.dto.JobKafkaDTO
+import com.minethehung.common.JobKafkaDTO
 import org.springframework.kafka.core.KafkaTemplate
 import org.springframework.stereotype.Component
 

@@ -1,6 +1,6 @@
 package com.minethehung.apiserver.service
 
-import com.minethehung.apiserver.dto.JobKafkaDTO
+import com.minethehung.common.JobKafkaDTO
 import com.minethehung.apiserver.dto.JobRequestDTO
 import com.minethehung.apiserver.entity.Job
 import com.minethehung.apiserver.entity.JobStatus
@@ -41,5 +41,9 @@ class JobService (
 
     fun createAndSendJob(jobRequestDTO: JobRequestDTO): Job {
         return  sendJobToKafka(createJob(jobRequestDTO))
+    }
+
+    fun getAllJobs(): List<Job>? {
+        return jobRepo.findAll()
     }
 }
