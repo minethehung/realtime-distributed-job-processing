@@ -8,6 +8,9 @@ spring:
         spring.json.trusted.packages: "*"
       auto-offset-reset: earliest
       group-id: job-worker
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
   application:
     name: worker-server
   datasource:
