@@ -17,4 +17,30 @@ public class JobConsumer {
     public void consume(JobKafkaDTO message){
         jobService.saveJob(message);
     }
+
+    @KafkaListener(
+            topics = "job-topic-retry-2s",
+            groupId = "job-worker",
+            containerFactory = "fastListenerFactory"
+    )
+    public void fastRetry(JobKafkaDTO message){
+        jobService.saveJob(message);
+    }
+    @KafkaListener(
+            topics = "job-topic-retry-5s",
+            groupId = "job-worker",
+            containerFactory = "fastListenerFactory"
+    )
+    public void mediumRetry(JobKafkaDTO message){
+        jobService.saveJob(message);
+    }
+
+    @KafkaListener(
+            topics = "job-topic-retry-15s",
+            groupId = "job-worker",
+            containerFactory = "fastListenerFactory"
+    )
+    public void slowRetry(JobKafkaDTO message){
+        jobService.saveJob(message);
+    }
 }

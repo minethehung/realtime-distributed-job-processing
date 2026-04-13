@@ -10,8 +10,8 @@ import org.springframework.stereotype.Component;
 public class JobProducer {
     private final KafkaTemplate<String, JobKafkaDTO> kafkaTemplate;
 
-    public void sendJob(JobKafkaDTO job) {
-        kafkaTemplate.send("job-topic", job.id().toString(), job)
+    public void sendJob(JobKafkaDTO job, String topic) {
+        kafkaTemplate.send(topic, job.id().toString(), job)
                 .whenComplete((result, e) -> {
                     if (e != null) {
                         System.out.println("Can not send job to kafka");
@@ -20,6 +20,7 @@ public class JobProducer {
                     }
                 });
     }
+
     public void sendJobToDLQ(JobKafkaDTO job) {
         kafkaTemplate.send("job-topic-dlq", job.id().toString(), job)
                 .whenComplete((result, e) -> {

@@ -35,9 +35,17 @@ public class JobService {
         else {
             System.out.println("FAIL to Executed job: " + job.getId() + "\n");
             job.setStatus(JobStatus.FAILED);
-            if (job.getRetryCount() < 3) {
+            if (job.getRetryCount() == 0) {
                 job.setRetryCount(job.getRetryCount() + 1);
-                jobProducer.sendJob(jobKafkaDTO);
+                jobProducer.sendJob(jobKafkaDTO, "job-topic-retry-2s");
+            }
+            else if (job.getRetryCount() == 1) {
+                job.setRetryCount(job.getRetryCount() + 1);
+                jobProducer.sendJob(jobKafkaDTO, "job-topic-retry-5s");
+            }
+            else if  (job.getRetryCount() == 2) {
+                job.setRetryCount(job.getRetryCount() + 1);
+                jobProducer.sendJob(jobKafkaDTO, "job-topic-retry-15s");
             }
             else {
                 jobProducer.sendJobToDLQ(jobKafkaDTO);
